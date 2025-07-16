@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flask Message Board</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f7f9fc;
+            color: #333;
+            max-width: 700px;
+            margin: auto;
+            padding: 40px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #0077cc;
+        }
+
+        form {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 70%;
+            border: 1px solid #ccc;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #0077cc;
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #005fa3;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .no-messages {
+            text-align: center;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <h1>📬 My Message Board</h1>
+
+    <form method="POST">
+        <input type="text" name="message" placeholder="Enter your message..." required>
+        <button type="submit">Post</button>
+    </form>
+
+    {% if messages %}
+    <ul>
+        {% for id, content in messages %}
+        <li><strong>#{{ id }}</strong> &nbsp; {{ content }}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p class="no-messages">No messages yet. Be the first one to post! 🚀</p>
+    {% endif %}
+</body>
+</html>
