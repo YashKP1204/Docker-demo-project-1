@@ -9,20 +9,32 @@ services:
       MYSQL_DATABASE: mydb
     ports:
       - "4000:3306"
+    healthcheck:
+      test: ['CMD','mysqladmin','ping','-h','localhost','-uroot','-proot']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 60s 
+
+
     volumes:
       - ./storage:/var/lib/mysql
     networks:
       - my-network
 
   flask-app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: ash1204/test-flask-app:v01
     container_name: flask-app
     restart: unless-stopped
     ports: 
       - "5000:5000"
     env_file: .env
+    healthcheck:
+      test: ["CMD-SHELL","curl -f http://localhost:5000 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 60s   
     depends_on:
       - mysql
     networks:

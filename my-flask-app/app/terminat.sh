@@ -1,2 +1,2 @@
-docker stop flask-app
-docker stop mysql 
+docker kill flask-app
+docker kill mysql 
